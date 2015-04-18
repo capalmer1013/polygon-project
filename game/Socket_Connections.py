@@ -59,6 +59,3 @@ y = s.recv(10)
 print(y)
 
 s.close()                # Close the connection
-
-
-#brent likes juicy dicks in his mouth
