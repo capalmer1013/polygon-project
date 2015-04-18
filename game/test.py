@@ -6,7 +6,7 @@ pygame.init()
 window_size = width, height = 640, 480
 black = 0, 0, 0
 
-speed = [1, 1]
+speed = [0, 0]
 
 screen = pygame.display.set_mode(window_size)
 
@@ -23,7 +23,10 @@ while True:
         speed[1] = -speed[1]
     # bullshit ends here
     for event in pygame.event.get():
-        if event.type ==
+        if event.type == KEYDOWN and event.key == K_LEFT:
+            player = pygame.transform.rotate(player, 10)
+        if event.type == KEYDOWN and event.key == K_RIGHT:
+            player = pygame.transform.rotate(player, -10)
         if event.type == QUIT:
             exit()
 
