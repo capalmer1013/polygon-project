@@ -1,5 +1,6 @@
 import sys, pygame
 from pygame.locals import *
+from math 
 
 pygame.init()
 
@@ -7,7 +8,8 @@ window_size = width, height = 640, 480
 black = 0, 0, 0
 
 speed = [0, 0]
-
+yChange = 0
+xChange = 0
 screen = pygame.display.set_mode(window_size)
 
 player = pygame.image.load("models/Player-test-model.png")
