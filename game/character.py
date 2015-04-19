@@ -1,4 +1,5 @@
 __author__ = 'Brent'
+from server import MySocket
 
 class Character:
     'base class for character data to pass to server'
@@ -25,7 +26,6 @@ class Character:
 
     def serialize_class(self):
         ser = bytearray(2048)
-        ser.append(2048)
         ser.append(self.user_id)
         ser.append(self.vertex_count)
         ser.append(self.max_health)
@@ -33,11 +33,10 @@ class Character:
         ser.append(self.xPos)
         ser.append(self.yPos)
         ser.append(self.orientation)
-        ser.append(self.user_name)
-        "\0"
-
-        print("first two bytes are the size of packet, inclusive")
-
+        #ser.append(self.user_name + "\0")
+        for i in self.user_name + "\0":
+            ser.append(i)
+        #print("first two bytes are the size of packet, inclusive")
 
     def to_string(self):
         print("ID: %i" % self.user_id)
@@ -47,9 +46,13 @@ class Character:
         print("yPos %i" % self.yPos)
         print("ORIENTATION %i" % self.orientation)
 
-Brent = Character(69696969, "blaze_it_bitch", 3, 10, 4, 69, 69, 120)
-Brent.to_string()
 
+Brent = Character(12, "blaze_it_bitch", 3, 10, 4, 69, 69, 120)
+#Brent.to_string()
+mySocket = MySocket.MySocket()
 
+mySocket.connect("10.8.62.228", 1337)
+print Brent.serialize_class()
+mySocket.mysend(Brent.serialize_class())
 
-
+temp_buffer = mySocket.myreceive()
