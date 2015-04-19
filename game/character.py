@@ -54,7 +54,6 @@ class Character:
         print("xPOS %i" % self.xPos)
         print("yPos %i" % self.yPos)
         print("ORIENTATION %i" % self.orientation)
-# I'm Brent and I love penis
 
 Brent = Character(12, "blaze_it_bitch", 3, 10, 4, 69, 69, 120)
 #Brent.to_string()
