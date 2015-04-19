@@ -40,16 +40,18 @@ rotate_left = False
 rotate_right = False
 rotate_counter_start = 20
 rotate_counter = rotate_counter_start
-player = pygame.image.load("models/Player-Triangle-00.png")
-player.set_alpha(255)
+sprite = pygame.image.load("models/Player-Triangle-00.png")
+sprite.set_alpha(255)
 angleChange = 0
 
 
 
-playerRect = player.get_rect()
-rot_tuple = (player, playerRect)
+playerRect = sprite.get_rect()
+rot_tuple = (sprite, playerRect)
 
+# test stuff for using character class
 
+player = Character(123, 'cpalmer', 3, 4, 4, 50, 50, 0)
 
 while True:
 
@@ -97,7 +99,7 @@ while True:
             exit()
     angleChange = angleChange % 360
 
-    tempPlayer = rot_center(player, angleChange)
+    tempPlayer = rot_center(sprite, angleChange)
     screen.fill(black)
     screen.blit(tempPlayer, (playerX, playerY))
     pygame.display.flip()
