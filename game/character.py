@@ -38,6 +38,11 @@ class Character:
         ser.insert(1, byte2)
         return ser
 
+    def get_update(self):
+        ser = bytearray()
+        #ser_len = (ser.__getitem__(0)<<8) & ser.__getitem__(1)
+        self.user_id = ser.__getitem__(3)
+
     def to_string(self):
         print("ID: %i" % self.user_id)
         print("USER: %s" % self.user_name)
@@ -57,102 +62,3 @@ mySocket.mysend(Brent.serialize_class())
 temp_buffer = mySocket.myreceive()
 print temp_buffer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-
-                              -    .|||||.
-                                  |||||||||
-                          -      ||||||  .
-                              -  ||||||   >
-                                ||||||| -/
-                           --   ||||||'(
-                        -       .'      \
-                             .-'    | | |
-                            /        \ \ \
-              --        -  |      `---:.`.\
-             ____________._>           \\_\\____ ,--.__
-  --    ,--""           /    `-   .     |)_)    '\     '\
-       /  "             |      .-'     /          \      '\
-     ,/                  \           .'            '\     |
-     | "   "   "          \         /                '\,  /
-     |           " , =_____`-.   .-'_________________,--""
-   - |  "    "    /"/'      /\>-' ( <
-     \  "      ",/ /    -  ( <    |\_)
-      \   ",",_/,-'        |\_)
-   -- -'-;.__:-'
-   '''
