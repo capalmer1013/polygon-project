@@ -79,22 +79,22 @@ while True:
 
     for event in pygame.event.get():
         if event.type == KEYDOWN and event.key == K_LEFT:
-            rotate_left = True
+            player.rotate_left = True
 
         if event.type == KEYUP and event.key == K_LEFT:
-            rotate_left = False
+            player.rotate_left = False
 
         if event.type == KEYUP and event.key == K_RIGHT:
-            rotate_right = False
+            player.rotate_right = False
 
         if event.type == KEYDOWN and event.key == K_RIGHT:
-            rotate_right = True
+            player.rotate_right = True
 
         if event.type == KEYDOWN and event.key == K_UP:
-            move = True
+            player.move = True
 
         if event.type == KEYUP and event.key == K_UP:
-            move = False
+            player.move = False
 
         if event.type == QUIT:
             exit()
