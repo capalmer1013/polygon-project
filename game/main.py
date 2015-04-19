@@ -25,37 +25,44 @@ screen = pygame.display.set_mode(window_size)
 
 # test stuff for using character class
 
-player = Character(123, 'cpalmer', 4, 100, 75, 50, 50, 0)
+player1 = Character(123, 'cpalmer', 5, 100, 50, 50, 50, 0)
+playerList = []
+playerList.append(player1)
 
+# get list of characters from server
+# append self
 
 while True:
-    player.cycle()
+    for player in playerList:
+        player.cycle()
 
-    # event handler
-    for event in pygame.event.get():
-        if event.type == KEYDOWN and event.key == K_LEFT:
-            player.rotate_left = True
+        # event handler
+        for event in pygame.event.get():
+            if event.type == KEYDOWN and event.key == K_LEFT:
+                player.rotate_left = True
 
-        if event.type == KEYUP and event.key == K_LEFT:
-            player.rotate_left = False
+            if event.type == KEYUP and event.key == K_LEFT:
+                player.rotate_left = False
 
-        if event.type == KEYUP and event.key == K_RIGHT:
-            player.rotate_right = False
+            if event.type == KEYUP and event.key == K_RIGHT:
+                player.rotate_right = False
 
-        if event.type == KEYDOWN and event.key == K_RIGHT:
-            player.rotate_right = True
+            if event.type == KEYDOWN and event.key == K_RIGHT:
+                player.rotate_right = True
 
-        if event.type == KEYDOWN and event.key == K_UP:
-            player.move = True
+            if event.type == KEYDOWN and event.key == K_UP:
+                player.move = True
 
-        if event.type == KEYUP and event.key == K_UP:
-            player.move = False
+            if event.type == KEYUP and event.key == K_UP:
+                player.move = False
 
-        if event.type == QUIT:
-            exit()
-    player.orientation %= 360
+            if event.type == QUIT:
+                exit()
+        player.orientation %= 360
+        screen.fill(white)
 
-    tempPlayer = rot_center(player.sprite, player.orientation)
-    screen.fill(white)
-    screen.blit(tempPlayer, (player.xPos, player.yPos))
+        tempPlayer = rot_center(player.sprite, player.orientation)
+
+        screen.blit(tempPlayer, (player.xPos, player.yPos))
     pygame.display.flip()
+
