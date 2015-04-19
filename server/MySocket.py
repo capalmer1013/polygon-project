@@ -1,5 +1,3 @@
-__author__ = 'Brent'
-
 import socket
 class MySocket:
     MSGLEN = 2048
