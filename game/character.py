@@ -28,6 +28,8 @@ class Character:
         self.rotateCounter = self.rotateCounterStart
         self.sprite = pygame.image.load(spriteName)
         self.sprite.set_alpha(255)
+        self.playerRect = self.sprite.get_rect()
+        self.rot_tuple = (self.sprite, self.playerRect)
 
     def serialize_class(self):
         ser = bytearray(2048)

@@ -44,11 +44,12 @@ rotate_counter = rotate_counter_start
 sprite = pygame.image.load("models/Player-Triangle-00.png")
 sprite.set_alpha(255)
 orientation = 0
-'''
+
 
 
 playerRect = sprite.get_rect()
 rot_tuple = (sprite, playerRect)
+'''
 
 # test stuff for using character class
 
