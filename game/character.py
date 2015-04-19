@@ -2,6 +2,7 @@ import pygame
 from server import MySocket
 from math import sin, cos, radians, pi
 
+white = 255, 255, 255
 
 def point_position(x0, y0, dist, theta):
     return dist*sin(theta), dist*cos(theta)
@@ -10,9 +11,9 @@ def point_position(x0, y0, dist, theta):
 class Character:
     # base class for character data to pass to server
 
-    playerSpeed = 10
-    playerMaxResistance = 50
-    rotateCounterStart = 50
+    playerSpeed = 5
+    playerMaxResistance = 10
+    rotateCounterStart = 30
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
@@ -31,6 +32,7 @@ class Character:
         self.rotate_left = False
         self.rotateCounter = self.rotateCounterStart
         self.sprite = pygame.image.load(spriteName)
+        self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
         self.playerRect = self.sprite.get_rect()
         self.rot_tuple = (self.sprite, self.playerRect)
