@@ -25,52 +25,57 @@ screen = pygame.display.set_mode(window_size)
 
 # test stuff for using character class
 
-player1 = Character(123, 'cpalmer', 5, 100, 50, 50, 50, 0)
+userID = 123
+player1 = Character(userID, 'cpalmer', 5, 100, 50, 200, 200, 0)
+player2 = Character(222, 'notcpalmer', 3, 100, 25, 75, 75, 60)
 playerList = []
 playerList.append(player1)
+playerList.append(player2)
 
 # get list of characters from server
 # append self
 
 while True:
+    screen.fill(white)
     for player in playerList:
         player.cycle()
         if player.xPos < 0:
             player.xPos = 0
         if player.xPos + player.playerRect.right > width:
             player.xPos = width - player.playerRect.right
-
         if player.yPos < 0:
             player.yPos = 0
         if player.yPos + player.playerRect.bottom > height:
             player.yPos = height - player.playerRect.bottom
+
         # event handler
-        for event in pygame.event.get():
-            if event.type == KEYDOWN and event.key == K_LEFT:
-                player.rotate_left = True
+        if player.user_id == userID:
+            for event in pygame.event.get():
+                if event.type == KEYDOWN and event.key == K_LEFT:
+                    player.rotate_left = True
 
-            if event.type == KEYUP and event.key == K_LEFT:
-                player.rotate_left = False
+                if event.type == KEYUP and event.key == K_LEFT:
+                    player.rotate_left = False
 
-            if event.type == KEYUP and event.key == K_RIGHT:
-                player.rotate_right = False
+                if event.type == KEYUP and event.key == K_RIGHT:
+                    player.rotate_right = False
 
-            if event.type == KEYDOWN and event.key == K_RIGHT:
-                player.rotate_right = True
+                if event.type == KEYDOWN and event.key == K_RIGHT:
+                    player.rotate_right = True
 
-            if event.type == KEYDOWN and event.key == K_UP:
-                player.move = True
+                if event.type == KEYDOWN and event.key == K_UP:
+                    player.move = True
 
-            if event.type == KEYUP and event.key == K_UP:
-                player.move = False
+                if event.type == KEYUP and event.key == K_UP:
+                    player.move = False
 
-            if event.type == QUIT:
-                exit()
+                if event.type == QUIT:
+                    exit()
         player.orientation %= 360
-        screen.fill(white)
 
         tempPlayer = rot_center(player.sprite, player.orientation)
 
         screen.blit(tempPlayer, (player.xPos, player.yPos))
+
     pygame.display.flip()
 
