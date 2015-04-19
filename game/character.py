@@ -120,6 +120,7 @@ class Character:
                 self.xPos -= xyTuple[0]
                 self.yPos -= xyTuple[1]
 
+'''
 Brent = Character(12, "BrentosorousRex", 3, 10, 4, 69, 69, 120)
 # Brent.to_string()
 mySocket = MySocket.MySocket()
@@ -130,3 +131,4 @@ mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
+'''
