@@ -1,11 +1,18 @@
+import pygame
 from server import MySocket
+from pygame.locals import *
 
 
 class Character:
     # base class for character data to pass to server
 
+    playerSpeed = 20
+    playerMaxResistance = 50
+    rotateCounterStart = 20
+
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
+        spriteName = 'models/Player-Triangle-00.png'
         self.user_id = user_id
         self.user_name = user_name
         self.vertex_count = vertex_count
@@ -14,6 +21,13 @@ class Character:
         self.xPos = xPos
         self.yPos = yPos
         self.orientation = orientation
+        self.playerResistance = self.playerMaxResistance
+        self.move = False
+        self.rotate_right = False
+        self.rotate_left = False
+        self.rotateCounter = self.rotateCounterStart
+        self.sprite = pygame.image.load(spriteName)
+        self.sprite.set_alpha(255)
 
     def serialize_class(self):
         ser = bytearray(2048)

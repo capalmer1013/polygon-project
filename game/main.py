@@ -28,6 +28,7 @@ window_size = width, height = 640, 480
 black = 255, 255, 255
 screen = pygame.display.set_mode(window_size)
 
+'''
 # Player data
 playerSpeed = 20
 playerMaxResistance = 50
@@ -42,8 +43,8 @@ rotate_counter_start = 20
 rotate_counter = rotate_counter_start
 sprite = pygame.image.load("models/Player-Triangle-00.png")
 sprite.set_alpha(255)
-angleChange = 0
-
+orientation = 0
+'''
 
 
 playerRect = sprite.get_rect()
@@ -53,29 +54,28 @@ rot_tuple = (sprite, playerRect)
 
 player = Character(123, 'cpalmer', 3, 4, 4, 50, 50, 0)
 
+
 while True:
 
-    if rotate_right:
-        rotate_counter -= 1
-        if rotate_counter == 0:
-            angleChange -= 10
-            rotate_counter = rotate_counter_start
+    if player.rotate_right:
+        player.rotateCounter -= 1
+        if player.rotateCounter == 0:
+            player.orientation -= 10
+            player.rotateCounter = player.rotateCounterStart
 
-    if rotate_left:
-        rotate_counter -= 1
-        if rotate_counter == 0:
-            angleChange += 10
-            rotate_counter = rotate_counter_start
-    if move:
-        xyTuple = point_position(0, 0, playerSpeed, radians(angleChange))
-        playerResistance -= 1
-        if playerResistance == 0:
-            playerResistance = playerMaxResistance
-            playerX -= xyTuple[0]
-            playerY -= xyTuple[1]
+    if player.rotate_left:
+        player.rotateCounter -= 1
+        if player.rotateCounter == 0:
+            player.orientation += 10
+            player.rotateCounter = player.rotateCounterStart
+    if player.move:
+        xyTuple = point_position(0, 0, player.playerSpeed, radians(player.orientation))
+        player.playerResistance -= 1
+        if player.playerResistance == 0:
+            player.playerResistance = player.playerMaxResistance
+            player.xPos -= xyTuple[0]
+            player.yPos -= xyTuple[1]
 
-
-    # bullshit ends here
     for event in pygame.event.get():
         if event.type == KEYDOWN and event.key == K_LEFT:
             rotate_left = True
@@ -97,9 +97,9 @@ while True:
 
         if event.type == QUIT:
             exit()
-    angleChange = angleChange % 360
+    player.orientation %= 360
 
-    tempPlayer = rot_center(sprite, angleChange)
+    tempPlayer = rot_center(player.sprite, player.orientation)
     screen.fill(black)
-    screen.blit(tempPlayer, (playerX, playerY))
+    screen.blit(tempPlayer, (player.xPos, player.yPos))
     pygame.display.flip()
