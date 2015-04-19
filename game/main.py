@@ -1,6 +1,7 @@
 import sys, pygame
 from pygame.locals import *
 from math import sin, cos, radians, pi
+from character import Character
 
 # function definitions here
 
@@ -28,9 +29,10 @@ black = 255, 255, 255
 screen = pygame.display.set_mode(window_size)
 
 # Player data
-distance = 20
+playerSpeed = 20
 playerMaxResistance = 50
 playerResistance = playerMaxResistance
+
 playerY = 50
 playerX = 50
 move = False
@@ -47,6 +49,8 @@ angleChange = 0
 playerRect = player.get_rect()
 rot_tuple = (player, playerRect)
 
+
+
 while True:
 
     if rotate_right:
@@ -61,7 +65,7 @@ while True:
             angleChange += 10
             rotate_counter = rotate_counter_start
     if move:
-        xyTuple = point_position(0, 0, distance, radians(angleChange))
+        xyTuple = point_position(0, 0, playerSpeed, radians(angleChange))
         playerResistance -= 1
         if playerResistance == 0:
             playerResistance = playerMaxResistance
