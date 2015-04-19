@@ -1,4 +1,3 @@
-__author__ = 'Brent'
 from server import MySocket
 
 class Character:

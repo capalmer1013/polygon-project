@@ -2,9 +2,11 @@ import sys, pygame
 from pygame.locals import *
 from math import sin, cos, radians, pi
 
+# function definitions here
+
 
 def rot_center(image, angle):
-    """rotate an image while keeping its center and size"""
+    # rotate an image while keeping its center and size
     orig_rect = image.get_rect()
     rot_image = pygame.transform.rotate(image, angle)
     rot_rect = orig_rect.copy()
@@ -16,40 +18,36 @@ def rot_center(image, angle):
 def point_position(x0, y0, dist, theta):
     return dist*sin(theta), dist*cos(theta)
 
-pygame.init()
 
+# Main starts here
+
+# setup the screen stuff
+pygame.init()
 window_size = width, height = 640, 480
 black = 255, 255, 255
-
-speed = [0, 0]
-playerMaxSpeed = 50
-playerSpeed = playerMaxSpeed
-distance = 20
-playerY = 50
-playerX = 50
 screen = pygame.display.set_mode(window_size)
 
+# Player data
+distance = 20
+playerMaxResistance = 50
+playerResistance = playerMaxResistance
+playerY = 50
+playerX = 50
 move = False
 rotate_left = False
 rotate_right = False
 rotate_counter_start = 20
 rotate_counter = rotate_counter_start
 player = pygame.image.load("models/Player-Triangle-00.png")
-
+player.set_alpha(255)
 angleChange = 0
 
-player.set_alpha(255)
+
 
 playerRect = player.get_rect()
 rot_tuple = (player, playerRect)
 
 while True:
-    playerRect = playerRect.move(speed)
-    if playerRect.left < 0 or playerRect.right > width:
-        speed[0] = -speed[0]
-
-    if playerRect.top < 0 or playerRect.bottom > height:
-        speed[1] = -speed[1]
 
     if rotate_right:
         rotate_counter -= 1
@@ -64,9 +62,9 @@ while True:
             rotate_counter = rotate_counter_start
     if move:
         xyTuple = point_position(0, 0, distance, radians(angleChange))
-        playerSpeed -= 1
-        if playerSpeed == 0:
-            playerSpeed = playerMaxSpeed
+        playerResistance -= 1
+        if playerResistance == 0:
+            playerResistance = playerMaxResistance
             playerX -= xyTuple[0]
             playerY -= xyTuple[1]
 
