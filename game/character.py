@@ -119,16 +119,14 @@ class Character:
                 self.playerResistance = self.playerMaxResistance
                 self.xPos -= xyTuple[0]
                 self.yPos -= xyTuple[1]
-'''
-Brent = Character(12, "blaze_it_bitch", 3, 10, 4, 69, 69, 120)
+
+Brent = Character(12, "BrentosorousRex", 3, 10, 4, 69, 69, 120)
 # Brent.to_string()
 mySocket = MySocket.MySocket()
 
-mySocket.connect("10.8.62.228", 1337)
+mySocket.connect("54.149.175.19", 1337)
 # print Brent.serialize_class()
 mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
-
-'''
