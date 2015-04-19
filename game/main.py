@@ -19,7 +19,7 @@ def rot_center(image, angle):
 
 # setup the screen stuff
 pygame.init()
-window_size = width, height = 640, 480
+window_size = width, height = 800, 600
 white = 255, 255, 255
 screen = pygame.display.set_mode(window_size)
 
@@ -35,7 +35,15 @@ playerList.append(player1)
 while True:
     for player in playerList:
         player.cycle()
+        if player.xPos < 0:
+            player.xPos = 0
+        if player.xPos + player.playerRect.right > width:
+            player.xPos = width - player.playerRect.right
 
+        if player.yPos < 0:
+            player.yPos = 0
+        if player.yPos + player.playerRect.bottom > height:
+            player.yPos = height - player.playerRect.bottom
         # event handler
         for event in pygame.event.get():
             if event.type == KEYDOWN and event.key == K_LEFT:
