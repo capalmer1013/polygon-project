@@ -60,8 +60,24 @@ class Character:
 
     def get_update(self):
         ser = bytearray()
-        #ser_len = (ser.__getitem__(0)<<8) & ser.__getitem__(1)
+        # ser_len = (ser.__getitem__(0)<<8) & ser.__getitem__(1)
         self.user_id = ser.__getitem__(3)
+        self.vertex_count = ser.__getitem__(4)
+        self.max_health = ser.__getitem__(5)
+        self.current_health = ser.__getitem__(6)
+        self.xPos = ser.__getitem__(7)
+        self.yPos = ser.__getitem__(8)
+        self.orientation = ser.__getitem__(9)
+
+        flag = True
+        i = 10
+        while flag:
+            user_name_byte = ser.__getitem__(i)
+            if user_name_byte == "\0":
+                flag = False
+            else:
+                self.user_name += user_name_byte
+
 
     def to_string(self):
         print("ID: %i" % self.user_id)
