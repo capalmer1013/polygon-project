@@ -1,14 +1,18 @@
 import pygame
 from server import MySocket
-from pygame.locals import *
+from math import sin, cos, radians, pi
+
+
+def point_position(x0, y0, dist, theta):
+    return dist*sin(theta), dist*cos(theta)
 
 
 class Character:
     # base class for character data to pass to server
 
-    playerSpeed = 20
+    playerSpeed = 10
     playerMaxResistance = 50
-    rotateCounterStart = 20
+    rotateCounterStart = 50
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
@@ -66,6 +70,27 @@ class Character:
         print("xPOS %i" % self.xPos)
         print("yPos %i" % self.yPos)
         print("ORIENTATION %i" % self.orientation)
+
+    def cycle(self):
+        if self.rotate_right:
+            self.rotateCounter -= 1
+            if self.rotateCounter == 0:
+                self.orientation -= 10
+                self.rotateCounter = self.rotateCounterStart
+
+        if self.rotate_left:
+            self.rotateCounter -= 1
+            if self.rotateCounter == 0:
+                self.orientation += 10
+                self.rotateCounter = self.rotateCounterStart
+
+        if self.move:
+            xyTuple = point_position(0, 0, self.playerSpeed, radians(self.orientation))
+            self.playerResistance -= 1
+            if self.playerResistance == 0:
+                self.playerResistance = self.playerMaxResistance
+                self.xPos -= xyTuple[0]
+                self.yPos -= xyTuple[1]
 
 Brent = Character(12, "blaze_it_bitch", 3, 10, 4, 69, 69, 120)
 # Brent.to_string()
