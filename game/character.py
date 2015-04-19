@@ -7,6 +7,15 @@ white = 255, 255, 255
 def point_position(x0, y0, dist, theta):
     return dist*sin(theta), dist*cos(theta)
 
+shapeDict = {3: 'triangle',
+             4: 'square',
+             5: 'pentagon',
+             6: 'hexagon',
+             7: 'heptagon',
+             8: 'octagon',
+             9: 'nonagon',
+             10: 'decagon',
+             0: 'circle'}
 
 class Character:
     # base class for character data to pass to server
@@ -17,7 +26,7 @@ class Character:
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
-        spriteName = 'models/Player-Triangle-00.png'
+
         self.user_id = user_id
         self.user_name = user_name
         self.vertex_count = vertex_count
@@ -31,7 +40,8 @@ class Character:
         self.rotate_right = False
         self.rotate_left = False
         self.rotateCounter = self.rotateCounterStart
-        self.sprite = pygame.image.load(spriteName)
+        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(current_health)+'.png'
+        self.sprite = pygame.image.load(self.spriteName)
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
         self.playerRect = self.sprite.get_rect()

@@ -25,7 +25,7 @@ screen = pygame.display.set_mode(window_size)
 
 # test stuff for using character class
 
-player = Character(123, 'cpalmer', 3, 4, 4, 50, 50, 0)
+player = Character(123, 'cpalmer', 4, 100, 75, 50, 50, 0)
 
 
 while True:
