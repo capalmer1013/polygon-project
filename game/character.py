@@ -1,4 +1,5 @@
 import pygame
+import random
 from server import MySocket
 from math import sin, cos, radians, pi
 
@@ -21,13 +22,13 @@ shapeDict = {3: 'triangle',
 class Character:
     # base class for character data to pass to server
 
-    playerSpeed = 5
-    playerMaxResistance = 10
-    rotateCounterStart = 30
+    playerSpeed = 1
+    playerMaxResistance = 1
+    rotateCounterStart = 1
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
-
+        self.wall = False
         self.user_id = user_id
         self.user_name = user_name
         self.vertex_count = vertex_count
@@ -112,13 +113,13 @@ class Character:
         if self.rotate_right:
             self.rotateCounter -= 1
             if self.rotateCounter == 0:
-                self.orientation -= 10
+                self.orientation -= 1
                 self.rotateCounter = self.rotateCounterStart
 
         if self.rotate_left:
             self.rotateCounter -= 1
             if self.rotateCounter == 0:
-                self.orientation += 10
+                self.orientation += 1
                 self.rotateCounter = self.rotateCounterStart
 
         if self.move:
@@ -130,12 +131,65 @@ class Character:
                 self.yPos -= xyTuple[1]
         self.rect = self.sprite.get_rect()
 
-'''
+
 class npc():
-    def __init__(self):
+    playerSpeed = 1
+    user_id = -1
+    user_name = 'npc'
+    max_health = 100
+    def __init__(self, vertex_count, xPos, yPos, orientation):
+        self.wall = False
+        self.vertex_count = vertex_count
+        self.xPos = xPos
+        self.yPos = yPos
+        self.orientation = orientation
+        self.current_health = 100
+        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.current_health)+'.png'
+        self.sprite = pygame.image.load(self.spriteName)
+        self.sprite.set_colorkey(white)
+        self.sprite.set_alpha(255)
+        self.playerRect = self.sprite.get_rect()
+        self.rect = self.sprite.get_rect()
+        self.rot_tuple = (self.sprite, self.playerRect)
+        self.attack = False
+        self.rotate_right = False
+        self.rotate_left = False
+        self.move = False
+
+
 
     def cycle(self):
-'''
+        chance = random.randint(3, 10)
+        if self.wall:
+            self.rotate_left = True
+            self.move = False
+            self.wall = False
+        else:
+            if chance < 9:
+                chance2 = random.randint(1, 5)
+                if chance2 == 1:
+                    self.rotate_right = False
+                    self.rotate_left = True
+                elif chance2 == 2:
+                    self.rotate_left = False
+                    self.rotate_right = True
+                else:
+                    self.move = True
+            else:
+                self.move = False
+
+        if self.rotate_right:
+            self.orientation -= 1
+
+        if self.rotate_left:
+            self.orientation += 1
+
+        if self.move:
+            xyTuple = point_position(0, 0, self.playerSpeed, radians(self.orientation))
+            self.xPos -= xyTuple[0]
+            self.yPos -= xyTuple[1]
+        self.rect = self.sprite.get_rect()
+
 
 
 Brent = Character(12, "BrentosorousRex", 3, 10, 25, 69, 69, 120)

@@ -1,9 +1,10 @@
-import sys, pygame
+import sys, pygame, random
 from pygame.locals import *
-from character import Character
+from character import Character, npc
 
 # function definitions here
 
+playerList = []
 
 def rot_center(image, angle):
     # rotate an image while keeping its center and size
@@ -14,6 +15,13 @@ def rot_center(image, angle):
     rot_image = rot_image.subsurface(rot_rect).copy()
     return rot_image
 
+def make_npc():
+    # magic
+    vertexNumber = (random.randint(1, 9) + 2) % 11
+    npcX = random.randint(50, 750)
+    npcY = random.randint(50, 550)
+    npcOr = random.randint(0, 359)
+    playerList.append(npc(vertexNumber, npcX, npcY, npcOr))
 
 # Main starts here
 
@@ -27,10 +35,10 @@ screen = pygame.display.set_mode(window_size)
 
 userID = 123
 player1 = Character(userID, 'cpalmer', 5, 100, 50, 200, 200, 0)
-player2 = Character(222, 'notcpalmer', 3, 100, 25, 75, 75, 60)
-playerList = []
+make_npc()
+
 playerList.append(player1)
-playerList.append(player2)
+
 
 # get list of characters from server
 # append self
@@ -41,12 +49,16 @@ while True:
         player.cycle()
         if player.xPos < 0:
             player.xPos = 0
+            player.wall = True
         if player.xPos + player.playerRect.right > width:
             player.xPos = width - player.playerRect.right
+            player.wall = True
         if player.yPos < 0:
             player.yPos = 0
+            player.wall = True
         if player.yPos + player.playerRect.bottom > height:
             player.yPos = height - player.playerRect.bottom
+            player.wall = True
         '''
         if pygame.sprite.spritecollideany(player, playerList):
             player.moveBack(player.playerSpeed)
