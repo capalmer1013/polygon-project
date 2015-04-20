@@ -130,14 +130,16 @@ class Character:
                 self.yPos -= xyTuple[1]
         self.rect = self.sprite.get_rect()
 
+'''
 class npc():
     def __init__(self):
 
     def cycle(self):
-
 '''
+
+
 Brent = Character(12, "BrentosorousRex", 3, 10, 25, 69, 69, 120)
-# Brent.to_string()
+Brent.to_string()
 mySocket = MySocket.MySocket()
 
 mySocket.connect("54.149.175.19", 1337)
@@ -146,4 +148,4 @@ mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
-'''
+
