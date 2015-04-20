@@ -47,7 +47,13 @@ while True:
             player.yPos = 0
         if player.yPos + player.playerRect.bottom > height:
             player.yPos = height - player.playerRect.bottom
-
+        '''
+        if pygame.sprite.spritecollideany(player, playerList):
+            player.moveBack(player.playerSpeed)
+        else:
+            player.moveBack(0)
+            print "stop"
+        '''
         # event handler
         if player.user_id == userID:
             for event in pygame.event.get():

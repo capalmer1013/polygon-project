@@ -17,6 +17,7 @@ shapeDict = {3: 'triangle',
              10: 'decagon',
              0: 'circle'}
 
+
 class Character:
     # base class for character data to pass to server
 
@@ -45,6 +46,7 @@ class Character:
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
         self.playerRect = self.sprite.get_rect()
+        self.rect = self.sprite.get_rect()
         self.rot_tuple = (self.sprite, self.playerRect)
 
     def serialize_class(self):
@@ -90,7 +92,6 @@ class Character:
             else:
                 self.user_name += user_name_byte
 
-
     def to_string(self):
         print("ID: %i" % self.user_id)
         print("USER: %s" % self.user_name)
@@ -98,6 +99,14 @@ class Character:
         print("xPOS %i" % self.xPos)
         print("yPos %i" % self.yPos)
         print("ORIENTATION %i" % self.orientation)
+
+    def moveBack(self, speed):
+        xyTuple = point_position(0, 0, speed*2, radians((self.orientation+180) % 360))
+        self.playerResistance -= 1
+        if self.playerResistance == 0:
+            self.playerResistance = self.playerMaxResistance
+            self.xPos -= xyTuple[0]
+            self.yPos -= xyTuple[1]
 
     def cycle(self):
         if self.rotate_right:
@@ -119,8 +128,14 @@ class Character:
                 self.playerResistance = self.playerMaxResistance
                 self.xPos -= xyTuple[0]
                 self.yPos -= xyTuple[1]
+        self.rect = self.sprite.get_rect()
 
+class npc():
+    def __init__(self):
 
+    def cycle(self):
+
+'''
 Brent = Character(12, "BrentosorousRex", 3, 10, 25, 69, 69, 120)
 # Brent.to_string()
 mySocket = MySocket.MySocket()
@@ -131,3 +146,4 @@ mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
+'''
