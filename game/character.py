@@ -207,7 +207,7 @@ class npc():
         self.rect = self.sprite.get_rect()
 
 
-
+'''
 Brent = Character(12, "BrentosorousRex", 3, 10, 25, 69, 69, 120)
 Brent.to_string()
 mySocket = MySocket.MySocket()
@@ -218,4 +218,4 @@ mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
-
+'''

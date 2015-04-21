@@ -1,7 +1,7 @@
 import sys, pygame, random
 from pygame.locals import *
 from character import Character, npc
-
+from server import MySocket
 # function definitions here
 
 playerList = []
@@ -39,10 +39,21 @@ make_npc()
 game_running = True
 playerList.append(player1)
 
+'''
+player1.to_string()
+mySocket = MySocket.MySocket()
+
+mySocket.connect("54.149.175.19", 1337)
+print player1.serialize_class()
+mySocket.mysend(player1.serialize_class())
+
+temp_buffer = mySocket.myreceive()
+print temp_buffer
+'''
 
 # get list of characters from server
 # append self
-
+print len(playerList)
 while game_running:
     screen.fill(white)
     for player in playerList:
