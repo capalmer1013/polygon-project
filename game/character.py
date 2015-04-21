@@ -28,7 +28,7 @@ class Character:
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
-        self.attackPower = vertex_count * 15
+        self.attackPower = vertex_count * 20
         self.attackCount = self.attackPower
         self.attack = False
         self.wall = False
