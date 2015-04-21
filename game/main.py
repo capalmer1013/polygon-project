@@ -78,6 +78,8 @@ while game_running:
                 a = pygame.Rect((player.xPos+20,player.yPos+20),(60,60))
                 b = pygame.Rect((otherPlayer.xPos+20,otherPlayer.yPos+20),(60,60))
                 if a.colliderect(b) == 1:
+                    player.collide = True
+                    otherPlayer.collide = True 
                     player.moveBack(player.playerSpeed)
                     if player.attack:
                         if otherPlayer.current_health > 0:

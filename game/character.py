@@ -28,7 +28,8 @@ class Character:
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
-
+        self.dieTimer = 100
+        self.collide = False
         self.attackPower = vertex_count * 20
         self.attackCount = self.attackPower
         self.attack = False
@@ -67,8 +68,10 @@ class Character:
         return returnHealth
 
     def updateHealth(self):
-        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.roundHealth(self.current_health))+'.png'
+        self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.roundHealth(self.current_health))+'.png'
         self.sprite = pygame.image.load(self.spriteName)
+        self.sprite.set_colorkey(white)
+        self.sprite.set_alpha(255)
 
     def serialize_class(self):
         ser = bytearray(2048)
@@ -167,6 +170,7 @@ class npc():
     max_health = 100
 
     def __init__(self, vertex_count, xPos, yPos, orientation):
+        self.collide = False
         self.dieTimer = 100
         self.attack = False
         self.wall = False
@@ -213,6 +217,8 @@ class npc():
         self.yPos -= xyTuple[1]
 
     def cycle(self):
+        if self.collide:
+            self.attack = True
         chance = random.randint(3, 10)
         if self.wall:
             self.rotate_left = True
