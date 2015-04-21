@@ -28,6 +28,7 @@ class Character:
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
+
         self.attackPower = vertex_count * 20
         self.attackCount = self.attackPower
         self.attack = False
@@ -45,7 +46,7 @@ class Character:
         self.rotate_right = False
         self.rotate_left = False
         self.rotateCounter = self.rotateCounterStart
-        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(current_health)+'.png'
+        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.roundHealth(current_health))+'.png'
         self.sprite = pygame.image.load(self.spriteName)
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
@@ -53,8 +54,20 @@ class Character:
         self.rect = self.sprite.get_rect()
         self.rot_tuple = (self.sprite, self.Rect)
 
+    def roundHealth(self, health):
+        returnHealth = 0
+        if health > 0:
+            returnHealth = 25
+        if health > 25:
+            returnHealth = 50
+        if health > 50:
+            returnHealth = 75
+        if health > 75:
+            returnHealth = 100
+        return returnHealth
+
     def updateHealth(self):
-        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.current_health)+'.png'
+        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.roundHealth(self.current_health))+'.png'
         self.sprite = pygame.image.load(self.spriteName)
 
     def serialize_class(self):
@@ -174,9 +187,22 @@ class npc():
         self.rotate_left = False
         self.move = False
 
+    def roundHealth(self, health):
+        returnHealth = 0
+        if health > 0:
+            returnHealth = 25
+        if health > 25:
+            returnHealth = 50
+        if health > 50:
+            returnHealth = 75
+        if health > 75:
+            returnHealth = 100
+        return returnHealth
+
     def updateHealth(self):
-        self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.current_health)+'.png'
+        self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.roundHealth(self.current_health))+'.png'
         self.sprite = pygame.image.load(self.spriteName)
+        print self.current_health
 
 
     def moveBack(self, speed):

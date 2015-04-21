@@ -78,11 +78,11 @@ while game_running:
                     player.moveBack(player.playerSpeed)
                     if player.attack:
                         if otherPlayer.current_health > 0:
-                            otherPlayer.current_health -= 25
+                            otherPlayer.current_health -= player.vertex_count * .05
                         otherPlayer.updateHealth()
                     #otherPlayer.moveBack(otherPlayer.playerSpeed)
 
-        if player.current_health == 0:
+        if player.current_health <= 0:
             player.dieTimer -= 1
             if player.dieTimer == 0:
                 playerList.remove(player)
