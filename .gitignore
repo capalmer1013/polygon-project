@@ -6,3 +6,5 @@ game/pygame2exe.py
 game/setup.py
 game/character.pyc
 game/character.pyc
+game/character.pyc
+*.pyc

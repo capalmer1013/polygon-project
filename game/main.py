@@ -55,7 +55,10 @@ print temp_buffer
 # append self
 
 while game_running:
+
     screen.fill(white)
+    if len(playerList) < 2:
+        make_npc()
     for player in playerList:
         player.cycle()
         if player.xPos < 0:
@@ -109,6 +112,8 @@ while game_running:
                     player.move = False
                 if event.type == KEYDOWN and event.key == K_SPACE:
                     player.attack = True
+                if event.type == KEYDOWN and event.key == K_TAB:
+                    make_npc()
                 if event.type == QUIT:
                     exit()
         player.orientation %= 360

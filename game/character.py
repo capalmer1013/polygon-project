@@ -167,7 +167,7 @@ class npc():
     max_health = 100
 
     def __init__(self, vertex_count, xPos, yPos, orientation):
-        self.dieTimer = 30
+        self.dieTimer = 100
         self.attack = False
         self.wall = False
         self.vertex_count = vertex_count
@@ -202,6 +202,8 @@ class npc():
     def updateHealth(self):
         self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.roundHealth(self.current_health))+'.png'
         self.sprite = pygame.image.load(self.spriteName)
+        self.sprite.set_colorkey(white)
+        self.sprite.set_alpha(255)
         print self.current_health
 
 
