@@ -218,12 +218,6 @@ mySocket.mysend(Brent.serialize_class())
 
 temp_buffer = mySocket.myreceive()
 print temp_buffer
-<<<<<<< HEAD
-'''
-=======
-<<<<<<< HEAD
-'''
-=======
 
->>>>>>> origin/master
->>>>>>> origin/master
+'''
+
