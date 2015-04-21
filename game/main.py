@@ -76,9 +76,17 @@ while game_running:
                 b = pygame.Rect((otherPlayer.xPos+20,otherPlayer.yPos+20),(60,60))
                 if a.colliderect(b) == 1:
                     player.moveBack(player.playerSpeed)
+                    if player.attack:
+                        if otherPlayer.current_health > 0:
+                            otherPlayer.current_health -= 25
+                        otherPlayer.updateHealth()
                     #otherPlayer.moveBack(otherPlayer.playerSpeed)
 
-
+        if player.current_health == 0:
+            player.dieTimer -= 1
+            if player.dieTimer == 0:
+                playerList.remove(player)
+                break
         # event handler
         if player.user_id == userID:
             for event in pygame.event.get():

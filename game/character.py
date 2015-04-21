@@ -53,6 +53,10 @@ class Character:
         self.rect = self.sprite.get_rect()
         self.rot_tuple = (self.sprite, self.Rect)
 
+    def updateHealth(self):
+        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.current_health)+'.png'
+        self.sprite = pygame.image.load(self.spriteName)
+
     def serialize_class(self):
         ser = bytearray(2048)
         ser.append(0)
@@ -150,6 +154,7 @@ class npc():
     max_health = 100
 
     def __init__(self, vertex_count, xPos, yPos, orientation):
+        self.dieTimer = 30
         self.attack = False
         self.wall = False
         self.vertex_count = vertex_count
@@ -157,7 +162,7 @@ class npc():
         self.yPos = yPos
         self.orientation = orientation
         self.current_health = 100
-        self.spriteName = 'models/Player-'+shapeDict[vertex_count]+'-'+str(self.current_health)+'.png'
+        self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.current_health)+'.png'
         self.sprite = pygame.image.load(self.spriteName)
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
@@ -168,6 +173,11 @@ class npc():
         self.rotate_right = False
         self.rotate_left = False
         self.move = False
+
+    def updateHealth(self):
+        self.spriteName = 'models/Player-'+shapeDict[self.vertex_count]+'-'+str(self.current_health)+'.png'
+        self.sprite = pygame.image.load(self.spriteName)
+
 
     def moveBack(self, speed):
         xyTuple = point_position(0, 0, speed*2, radians((self.orientation+180) % 360))
@@ -193,6 +203,10 @@ class npc():
                     self.move = True
             else:
                 self.move = False
+        if self.current_health == 0:
+            self.move = False
+            self.rotate_left = False
+            self.rotate_right = False
 
         if self.rotate_right:
             self.orientation -= 1
@@ -207,7 +221,7 @@ class npc():
         self.rect = self.sprite.get_rect()
 
 
-'''
+
 Brent = Character(12, "BrentosorousRex", 3, 10, 25, 69, 69, 120)
 Brent.to_string()
 mySocket = MySocket.MySocket()
@@ -219,5 +233,5 @@ mySocket.mysend(Brent.serialize_class())
 temp_buffer = mySocket.myreceive()
 print temp_buffer
 
-'''
+
 
