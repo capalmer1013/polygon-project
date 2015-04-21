@@ -34,38 +34,40 @@ screen = pygame.display.set_mode(window_size)
 # test stuff for using character class
 
 userID = 123
-player1 = Character(userID, 'cpalmer', 5, 100, 50, 200, 200, 0)
+player1 = Character(userID, 'cpalmer', 3, 100, 100, 200, 200, 0)
 make_npc()
-
+game_running = True
 playerList.append(player1)
 
 
 # get list of characters from server
 # append self
 
-while True:
+while game_running:
     screen.fill(white)
     for player in playerList:
         player.cycle()
         if player.xPos < 0:
             player.xPos = 0
             player.wall = True
-        if player.xPos + player.playerRect.right > width:
-            player.xPos = width - player.playerRect.right
+        if player.xPos + player.Rect.right > width:
+            player.xPos = width - player.Rect.right
             player.wall = True
         if player.yPos < 0:
             player.yPos = 0
             player.wall = True
-        if player.yPos + player.playerRect.bottom > height:
-            player.yPos = height - player.playerRect.bottom
+        if player.yPos + player.Rect.bottom > height:
+            player.yPos = height - player.Rect.bottom
             player.wall = True
-        '''
-        if pygame.sprite.spritecollideany(player, playerList):
-            player.moveBack(player.playerSpeed)
-        else:
-            player.moveBack(0)
-            print "stop"
-        '''
+        for otherPlayer in playerList:
+            if otherPlayer is not player:
+                a = pygame.Rect((player.xPos+20,player.yPos+20),(60,60))
+                b = pygame.Rect((otherPlayer.xPos+20,otherPlayer.yPos+20),(60,60))
+                if a.colliderect(b) == 1:
+                    player.moveBack(player.playerSpeed)
+                    #otherPlayer.moveBack(otherPlayer.playerSpeed)
+
+
         # event handler
         if player.user_id == userID:
             for event in pygame.event.get():
@@ -86,7 +88,8 @@ while True:
 
                 if event.type == KEYUP and event.key == K_UP:
                     player.move = False
-
+                if event.type == KEYDOWN and event.key == K_SPACE:
+                    player.attack = True
                 if event.type == QUIT:
                     exit()
         player.orientation %= 360

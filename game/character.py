@@ -28,6 +28,9 @@ class Character:
 
     def __init__(self, user_id, user_name, vertex_count, max_health, current_health,
                             xPos, yPos, orientation):
+        self.attackPower = vertex_count * 15
+        self.attackCount = self.attackPower
+        self.attack = False
         self.wall = False
         self.user_id = user_id
         self.user_name = user_name
@@ -46,9 +49,9 @@ class Character:
         self.sprite = pygame.image.load(self.spriteName)
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
-        self.playerRect = self.sprite.get_rect()
+        self.Rect = self.sprite.get_rect()
         self.rect = self.sprite.get_rect()
-        self.rot_tuple = (self.sprite, self.playerRect)
+        self.rot_tuple = (self.sprite, self.Rect)
 
     def serialize_class(self):
         ser = bytearray(2048)
@@ -110,6 +113,14 @@ class Character:
             self.yPos -= xyTuple[1]
 
     def cycle(self):
+        if self.attack:
+            if self.attackCount > 0:
+                self.orientation -= 10
+                self.attackCount -= 1
+            else:
+                self.attackCount = self.vertex_count * self.attackPower
+                self.attack = False
+
         if self.rotate_right:
             self.rotateCounter -= 1
             if self.rotateCounter == 0:
@@ -137,7 +148,9 @@ class npc():
     user_id = -1
     user_name = 'npc'
     max_health = 100
+
     def __init__(self, vertex_count, xPos, yPos, orientation):
+        self.attack = False
         self.wall = False
         self.vertex_count = vertex_count
         self.xPos = xPos
@@ -148,15 +161,18 @@ class npc():
         self.sprite = pygame.image.load(self.spriteName)
         self.sprite.set_colorkey(white)
         self.sprite.set_alpha(255)
-        self.playerRect = self.sprite.get_rect()
+        self.Rect = self.sprite.get_rect()
         self.rect = self.sprite.get_rect()
-        self.rot_tuple = (self.sprite, self.playerRect)
+        self.rot_tuple = (self.sprite, self.Rect)
         self.attack = False
         self.rotate_right = False
         self.rotate_left = False
         self.move = False
 
-
+    def moveBack(self, speed):
+        xyTuple = point_position(0, 0, speed*2, radians((self.orientation+180) % 360))
+        self.xPos -= xyTuple[0]
+        self.yPos -= xyTuple[1]
 
     def cycle(self):
         chance = random.randint(3, 10)
@@ -165,7 +181,7 @@ class npc():
             self.move = False
             self.wall = False
         else:
-            if chance < 9:
+            if chance < 15:
                 chance2 = random.randint(1, 5)
                 if chance2 == 1:
                     self.rotate_right = False
