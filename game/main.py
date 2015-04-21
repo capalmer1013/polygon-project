@@ -53,7 +53,7 @@ print temp_buffer
 
 # get list of characters from server
 # append self
-print len(playerList)
+
 while game_running:
     screen.fill(white)
     for player in playerList:
