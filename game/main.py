@@ -34,7 +34,7 @@ screen = pygame.display.set_mode(window_size)
 # test stuff for using character class
 
 userID = 123
-player1 = Character(userID, 'cpalmer', 3, 100, 100, 200, 200, 0)
+player1 = Character(userID, 'cpalmer', 3, 100, 200, 200, 200, 0)
 make_npc()
 game_running = True
 playerList.append(player1)
@@ -79,14 +79,13 @@ while game_running:
                 b = pygame.Rect((otherPlayer.xPos+20,otherPlayer.yPos+20),(60,60))
                 if a.colliderect(b) == 1:
                     player.collide = True
-                    otherPlayer.collide = True 
+                    otherPlayer.collide = True
                     player.moveBack(player.playerSpeed)
                     if player.attack:
                         if otherPlayer.current_health > 0:
                             otherPlayer.current_health -= player.vertex_count * .05
                         otherPlayer.updateHealth()
                     #otherPlayer.moveBack(otherPlayer.playerSpeed)
-
         if player.current_health <= 0:
             player.dieTimer -= 1
             if player.dieTimer == 0:
@@ -94,6 +93,8 @@ while game_running:
                 break
         # event handler
         if player.user_id == userID:
+            if player.current_health <= 0:
+                game_running = False
             for event in pygame.event.get():
                 if event.type == KEYDOWN and event.key == K_LEFT:
                     player.rotate_left = True
