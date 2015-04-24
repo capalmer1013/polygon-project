@@ -3,7 +3,6 @@ from pygame.locals import *
 from character import Character, npc
 from server import MySocket
 # function definitions here
-
 playerList = []
 
 def rot_center(image, angle):
